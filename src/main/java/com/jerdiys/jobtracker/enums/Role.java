@@ -1,7 +1,7 @@
 package com.jerdiys.jobtracker.enums;
 
 public enum Role {
-    ADMIN,
-    RECRUITER,
-    CANDIDATE
+    ROLE_ADMIN,
+    ROLE_RECRUITER,
+    ROLE_CANDIDATE
 }

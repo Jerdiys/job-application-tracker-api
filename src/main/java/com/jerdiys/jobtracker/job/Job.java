@@ -3,12 +3,15 @@ package com.jerdiys.jobtracker.job;
 import com.jerdiys.jobtracker.enums.EmploymentType;
 import com.jerdiys.jobtracker.user.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "jobs")
 public class Job {
 

@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ApplicationRepo extends JpaRepository<Application, Long> {
-    List<Application> findByCandidate(User candidate);
-    List<Application> findByJob(Job job);
+    List<Application> findByCandidateId(User candidate);
+    List<Application> findByJobId(Job job);
 }

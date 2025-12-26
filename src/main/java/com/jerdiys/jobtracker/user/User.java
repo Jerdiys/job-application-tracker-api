@@ -2,12 +2,15 @@ package com.jerdiys.jobtracker.user;
 
 import com.jerdiys.jobtracker.enums.Role;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 

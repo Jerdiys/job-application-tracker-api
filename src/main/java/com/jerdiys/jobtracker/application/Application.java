@@ -4,12 +4,15 @@ import com.jerdiys.jobtracker.enums.ApplicationStatus;
 import com.jerdiys.jobtracker.job.Job;
 import com.jerdiys.jobtracker.user.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "applications", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"job_id", "candidate_id"})})
 public class Application {
