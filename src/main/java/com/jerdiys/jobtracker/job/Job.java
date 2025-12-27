@@ -29,7 +29,7 @@ public class Job {
     private String location;
 
     @Enumerated(EnumType.STRING)
-    private EmploymentType employmentType; // e.g., Applied, Interviewing, Offered, Rejected
+    private EmploymentType employmentType;
 
     @ManyToOne
     @JoinColumn(name = "recruiter_id")
