@@ -1,6 +1,7 @@
 package com.jerdiys.jobtracker.user;
 
 import com.jerdiys.jobtracker.dtos.UserResponse;
+import com.jerdiys.jobtracker.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class UserService {
 
     public UserResponse getUserByEmail(String userEmail) {
         User user = userRepo.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
         return UserResponse.builder()
                 .id(String.valueOf(user.getId()))
                 .name(user.getName())
@@ -39,7 +40,7 @@ public class UserService {
 
     public UserResponse getUserById(Long id) {
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         return UserResponse.builder()
                 .id(String.valueOf(user.getId()))
                 .name(user.getName())

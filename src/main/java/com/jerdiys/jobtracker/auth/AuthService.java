@@ -1,5 +1,6 @@
 package com.jerdiys.jobtracker.auth;
 
+import com.jerdiys.jobtracker.dtos.UserResponse;
 import com.jerdiys.jobtracker.user.User;
 import com.jerdiys.jobtracker.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,19 @@ public class AuthService {
         this.userRepo = userRepo;
     }
 
-    public String registerUser(User user) {
+    public UserResponse registerUser(User user) {
         if (userRepo.findByEmail(user.getEmail()).isPresent()) {
-            return "Error: Email is already in use.";
+            throw new RuntimeException("Error: Email is already in use.");
         }
         String password = user.getPassword();
         user.setPassword(passwordEncoder.encode(password));
-        userRepo.save(user);
-        return "User registered successfully." ;
+        User newUser = userRepo.save(user);
+        return UserResponse.builder()
+                .id(newUser.getId().toString())
+                .name(newUser.getName())
+                .email(newUser.getEmail())
+                .role(newUser.getRole().name())
+                .build();
     }
 
     public AuthResponse generateToken(String token) {

@@ -23,11 +23,11 @@ public class Application {
 
     @ManyToOne
     @JoinColumn(name = "job_id", nullable = false)
-    private Job jobId;
+    private Job job;
 
     @ManyToOne
     @JoinColumn(name = "candidate_id", nullable = false)
-    private User candidateId;
+    private User candidate;
 
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status = ApplicationStatus.APPLIED;

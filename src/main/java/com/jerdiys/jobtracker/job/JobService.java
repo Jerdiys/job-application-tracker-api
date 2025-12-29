@@ -2,6 +2,8 @@ package com.jerdiys.jobtracker.job;
 
 import com.jerdiys.jobtracker.dtos.JobRequest;
 import com.jerdiys.jobtracker.dtos.JobResponse;
+import com.jerdiys.jobtracker.exception.ForbiddenException;
+import com.jerdiys.jobtracker.exception.ResourceNotFoundException;
 import com.jerdiys.jobtracker.user.User;
 import com.jerdiys.jobtracker.user.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +23,18 @@ public class JobService {
         this.jobRepo = jobRepo;
     }
 
-
     public String createJob(JobRequest jobRequest, String userEmail) {
         Job job = new Job();
         User recruiter = userRepo.findByEmail(userEmail)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         job.setTitle(jobRequest.getTitle());
         job.setDescription(jobRequest.getDescription());
         job.setLocation(jobRequest.getLocation());
         job.setEmploymentType(jobRequest.getEmploymentType());
         job.setRecruiter(recruiter);
 
-
-        jobRepo.save(job);
-        return "Job created successfully.";
+        Job savedJob = jobRepo.save(job);
+        return "Job created with ID: " + savedJob.getId();
     }
 
     public List<JobResponse> getAllJobs() {
@@ -51,7 +51,7 @@ public class JobService {
 
     public JobResponse getJobById(Long id) {
         Job job = jobRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + id));
         return JobResponse.builder()
                 .id(String.valueOf(job.getId()))
                 .title(job.getTitle())
@@ -62,26 +62,33 @@ public class JobService {
                 .build();
     }
 
-    public String updateJob(Long id, JobRequest jobRequest, String userEmail) {
+    public JobResponse updateJob(Long id, JobRequest jobRequest, String userEmail) {
         Job job = jobRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + id));
         if (!job.getRecruiter().getEmail().equals(userEmail)) {
-            throw new RuntimeException("Unauthorized to update this job");
+            throw new ForbiddenException("Unauthorized to update this job");
         }
         job.setTitle(jobRequest.getTitle());
         job.setDescription(jobRequest.getDescription());
         job.setLocation(jobRequest.getLocation());
         job.setEmploymentType(jobRequest.getEmploymentType());
 
-        jobRepo.save(job);
-        return "Job updated successfully.";
+        Job updatedJob = jobRepo.save(job);
+        return JobResponse.builder()
+                .id(String.valueOf(updatedJob.getId()))
+                .title(updatedJob.getTitle())
+                .description(updatedJob.getDescription())
+                .location(updatedJob.getLocation())
+                .employmentType(updatedJob.getEmploymentType().name())
+                .postedBy(updatedJob.getRecruiter().getName())
+                .build();
     }
 
     public String deleteJob(Long id, String userEmail) {
         Job job = jobRepo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Job not found with id: " + id));
         if (!job.getRecruiter().getEmail().equals(userEmail)) {
-            throw new RuntimeException("Unauthorized to delete this job");
+            throw new ForbiddenException("Unauthorized to delete this job");
         }
         jobRepo.delete(job);
         return "Job deleted successfully.";
