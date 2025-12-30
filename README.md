@@ -2,6 +2,11 @@
 
 A production-ready REST API for managing job applications, built with Spring Boot 3.5 and modern Java practices. This project demonstrates enterprise-level backend development with comprehensive security, validation, error handling, and API documentation.
 
+## 🎯 Problem Statement
+
+In today's competitive job market, candidates often struggle to keep track of multiple applications, while recruiters face challenges in managing job postings and candidate pipelines efficiently. Existing solutions can be overly complex or lack customization. This **Job Application Tracker API** provides a streamlined, secure, and robust backend to manage this process, ensuring data integrity and role-based access control.
+
+
 ## 🚀 Features
 
 - **Multi-Role Authentication**: JWT-based authentication with role-based access control (Admin, Recruiter, Candidate)
@@ -39,6 +44,7 @@ A production-ready REST API for managing job applications, built with Spring Boo
 - **Maven** - Dependency management and build tool
 - **Lombok** - Reduce boilerplate code
 - **Docker & Docker Compose** - Containerization
+
 
 ## 📋 Prerequisites
 
