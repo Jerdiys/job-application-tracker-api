@@ -282,7 +282,7 @@ This project is open source and available under the MIT License.
 **Your Name**
 - GitHub: [@jerdiys](https://github.com/jerdiys)
 - LinkedIn: [David John](https://linkedin.com/in/david-john-1a1362252)
-- Email: your.email@example.com
+- Email: seanjed82@gmail.com
 
 ## 🙏 Acknowledgments
 

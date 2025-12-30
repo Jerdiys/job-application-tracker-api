@@ -28,7 +28,7 @@ jobs:
           restore-keys: ${{ runner.os }}-maven-
 
       - name: Build and run tests
-        run: mvn clean install
+        run: mvn clean install -Dspring.profiles.active=test
 
       - name: Build Docker image
         run: docker build -t job-tracker-api .
