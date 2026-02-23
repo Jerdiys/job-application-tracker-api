@@ -293,9 +293,3 @@ This project is open source and available under the MIT License.
 ---
 
 **Note**: This is a portfolio project demonstrating modern Spring Boot development practices. It showcases enterprise-level features including security, validation, error handling, and comprehensive API documentation.
-
-## Live Demo
-API Base URL: https://job-application-tracker-api-3o3f.onrender.com
-
-## API Documentation
-Swagger UI: https://job-application-tracker-api-3o3f.onrender.com/swagger-ui/index.html
